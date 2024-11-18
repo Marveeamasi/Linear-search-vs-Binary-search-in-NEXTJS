@@ -1,0 +1,29 @@
+// our dataset
+const data = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" },
+  { id: 3, name: "Charlie" },
+  { id: 4, name: "Diana" },
+  { id: 5, name: "Eve" }
+];
+
+// linear Search Function
+function linearSearch(arr, targetName) {
+  for (let item of arr) {
+    if (item.name === targetName) {
+      return item; // found
+    }
+  }
+  return null; // not found
+}
+
+// API route in nextjs
+export default function handler(req, res) {
+  const { name } = req.query; // Get search term
+  const result = linearSearch(data, name); // Perform search
+  if (result) {
+    res.status(200).json({ message: "Found", result });
+  } else {
+    res.status(404).json({ message: "Not Found" });
+  }
+}
